@@ -28,6 +28,17 @@ where
     contents
 }
 
+pub(crate) fn get_input_as_vec_with<T>(path: &str, f: impl Fn(&str) -> T) -> Vec<T> {
+    let file = get_buffered_input(path);
+    let mut contents = Vec::with_capacity(512);
+
+    for line in file.lines() {
+        contents.push(f(&line.unwrap()));
+    }
+
+    contents
+}
+
 pub(crate) fn get_input_as_matrix(path: &str) -> Vec<Vec<char>> {
     let file = get_buffered_input(path);
     let mut contents = Vec::with_capacity(128);
