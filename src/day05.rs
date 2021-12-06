@@ -25,7 +25,7 @@ fn points_least_two_overlap(
     let mut map = vec![vec![0; 1000]; 1000];
 
     lines
-        .into_iter()
+        .iter()
         .filter(|line| filter(line))
         .for_each(|line| update_map(&mut map, line));
 
@@ -36,7 +36,7 @@ fn points_least_two_overlap(
 }
 
 fn cvt_str_to_line(lines: &[&str]) -> Vec<Line> {
-    lines.into_iter().map(|line| parse_line(line)).collect()
+    lines.iter().map(|line| parse_line(line)).collect()
 }
 
 fn parse_line(line: &str) -> Line {
@@ -120,39 +120,37 @@ fn horizontal_vertical_diagonal(map: &mut Vec<Vec<i32>>, line: &Line) {
                 y1 += 1;
             }
         }
+    } else if x1 > x2 && y1 > y2 {
+        let down_to = x1 - x2;
+
+        for _ in 0..down_to {
+            map[y1][x1] += 1;
+            x1 -= 1;
+            y1 -= 1;
+        }
+    } else if x1 < x2 && y1 < y2 {
+        let down_to = x2 - x1;
+        for _ in 0..down_to {
+            map[y1][x1] += 1;
+            x1 += 1;
+            y1 += 1;
+        }
     } else {
-        if x1 > x2 && y1 > y2 {
-            let down_to = x1 - x2;
+        let down_to = if x1 < x2 { x2 - x1 } else { x1 - x2 };
+        let xn = if x1 < x2 { 1 } else { -1 };
+        let yn = if y1 < y2 { 1 } else { -1 };
 
-            for _ in 0..down_to {
-                map[y1][x1] += 1;
-                x1 -= 1;
-                y1 -= 1;
-            }
-        } else if x1 < x2 && y1 < y2 {
-            let down_to = x2 - x1;
-            for _ in 0..down_to {
-                map[y1][x1] += 1;
+        for _ in 0..down_to {
+            map[y1][x1] += 1;
+            if xn == 1 {
                 x1 += 1;
-                y1 += 1;
+            } else {
+                x1 -= 1;
             }
-        } else {
-            let down_to = if x1 < x2 { x2 - x1 } else { x1 - x2 };
-            let xn = if x1 < x2 { 1 } else { -1 };
-            let yn = if y1 < y2 { 1 } else { -1 };
-
-            for _ in 0..down_to {
-                map[y1][x1] += 1;
-                if xn == 1 {
-                    x1 += 1;
-                } else {
-                    x1 -= 1;
-                }
-                if yn == 1 {
-                    y1 += 1;
-                } else {
-                    y1 -= 1;
-                }
+            if yn == 1 {
+                y1 += 1;
+            } else {
+                y1 -= 1;
             }
         }
     }
