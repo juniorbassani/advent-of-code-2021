@@ -2,7 +2,7 @@ use once_cell::sync::Lazy;
 
 use crate::utils;
 
-static INPUT: Lazy<Vec<u8>> = Lazy::new(|| utils::parse_line(INPUT_PATH));
+static INPUT: Lazy<Vec<u8>> = Lazy::new(|| utils::parse_one_line(INPUT_PATH));
 const INPUT_PATH: &str = "input/day06";
 
 fn number_of_fishes_after_n_days(fish_list: &[u8], days: usize) -> usize {

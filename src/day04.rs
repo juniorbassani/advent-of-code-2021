@@ -1,10 +1,8 @@
-#![allow(clippy::needless_range_loop)]
-
 use once_cell::sync::Lazy;
 
 use crate::utils;
 
-static CHOSEN_NUMBERS: Lazy<Vec<i32>> = Lazy::new(|| utils::parse_line(INPUT_PATH));
+static CHOSEN_NUMBERS: Lazy<Vec<i32>> = Lazy::new(|| utils::parse_one_line(INPUT_PATH));
 static BOARDS: Lazy<Vec<Board>> = Lazy::new(|| {
     let contents = std::fs::read_to_string(INPUT_PATH).unwrap();
     let pos = contents.find(|ch: char| ch.is_ascii_whitespace()).unwrap();
@@ -98,6 +96,8 @@ fn winner(boards: &[Board]) -> Option<(usize, &Board)> {
     for (i, board) in boards.iter().enumerate() {
         'row: for row in 0..5 {
             let mut count = 0;
+
+            #[allow(clippy::needless_range_loop)]
             for col in 0..5 {
                 let (_, mark) = board[col][row];
                 if !mark {

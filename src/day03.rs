@@ -1,5 +1,3 @@
-#![allow(clippy::from_over_into)]
-
 use once_cell::sync::Lazy;
 
 use crate::utils;
@@ -14,6 +12,7 @@ enum ZeroOrOne {
     One,
 }
 
+#[allow(clippy::from_over_into)]
 impl Into<usize> for ZeroOrOne {
     fn into(self) -> usize {
         match self {
