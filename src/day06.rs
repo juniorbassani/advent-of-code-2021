@@ -22,11 +22,7 @@ fn number_of_fishes_after_n_days(fish_list: &[u8], days: usize) -> usize {
         fishes[6] += to_procreate;
     }
 
-    let mut sum = 0;
-    for fish in fishes {
-        sum += fish;
-    }
-    sum
+    fishes.into_iter().sum()
 }
 
 pub fn part1() -> usize {
