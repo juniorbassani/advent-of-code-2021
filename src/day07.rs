@@ -18,14 +18,14 @@ fn align_least_fuel(positions: &[usize]) -> usize {
 }
 
 fn align_least_fuel2(positions: &[usize]) -> usize {
-    let mut fuel_cost = vec![0; *positions.iter().max().unwrap() + 2];
+    let mut fuel_cost = vec![0; *positions.iter().max().unwrap() + 1];
 
     for &pos in positions.iter() {
         let mut prev = 0;
         // Right side
-        for i in pos + 1..fuel_cost.len() {
+        for (i, fuel_cost) in fuel_cost.iter_mut().enumerate().skip(pos + 1) {
             let cost = i - pos + prev;
-            fuel_cost[i] += cost;
+            *fuel_cost += cost;
             prev = cost;
         }
 
@@ -38,7 +38,6 @@ fn align_least_fuel2(positions: &[usize]) -> usize {
         }
     }
 
-    fuel_cost.pop();
     fuel_cost.into_iter().min().unwrap()
 }
 

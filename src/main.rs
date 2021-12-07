@@ -1,4 +1,4 @@
-#![allow(dead_code, unreachable_code)]
+#![allow(unused)]
 
 mod day01;
 mod day02;

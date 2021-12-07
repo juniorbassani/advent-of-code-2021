@@ -35,10 +35,6 @@ fn points_least_two_overlap(
         .count()
 }
 
-fn cvt_str_to_line(lines: &[&str]) -> Vec<Line> {
-    lines.iter().map(|line| parse_line(line)).collect()
-}
-
 fn parse_line(line: &str) -> Line {
     let mut iter = line.split(" -> ");
     let lhs = iter.next().unwrap();
@@ -191,6 +187,10 @@ mod tests {
         "0,0 -> 8,8",
         "5,5 -> 8,2",
     ];
+
+    fn cvt_str_to_line(lines: &[&str]) -> Vec<Line> {
+        lines.iter().map(|line| parse_line(line)).collect()
+    }
 
     #[test]
     fn parse_str_as_line() {
