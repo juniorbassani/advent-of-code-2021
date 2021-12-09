@@ -18,6 +18,17 @@ pub(crate) fn get_input_as_vec_with<T>(path: &str, mut f: impl FnMut(&str) -> T)
         .collect()
 }
 
+pub(crate) fn get_input_as_matrix<T>(path: &str, mut parse: impl FnMut(u8) -> T) -> Vec<Vec<T>> {
+    let file = get_buffered_input(path);
+    let mut contents = Vec::with_capacity(128);
+
+    for line in file.lines() {
+        contents.push(line.unwrap().bytes().map(|b| parse(b)).collect());
+    }
+
+    contents
+}
+
 pub(crate) fn parse_one_line<T>(path: &str) -> Vec<T>
 where
     T: FromStr,
