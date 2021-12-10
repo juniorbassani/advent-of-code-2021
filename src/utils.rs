@@ -18,15 +18,14 @@ pub(crate) fn get_input_as_vec_with<T>(path: &str, mut f: impl FnMut(&str) -> T)
         .collect()
 }
 
-pub(crate) fn get_input_as_matrix<T>(path: &str, mut parse: impl FnMut(u8) -> T) -> Vec<Vec<T>> {
-    let file = get_buffered_input(path);
-    let mut contents = Vec::with_capacity(128);
-
-    for line in file.lines() {
-        contents.push(line.unwrap().bytes().map(|b| parse(b)).collect());
-    }
-
-    contents
+pub(crate) fn get_input_as_matrix<T>(
+    path: &str,
+    mut parse: impl FnMut(u8) -> T + Copy,
+) -> Vec<Vec<T>> {
+    get_buffered_input(path)
+        .lines()
+        .map(|line| line.unwrap().bytes().map(parse).collect())
+        .collect()
 }
 
 pub(crate) fn parse_one_line<T>(path: &str) -> Vec<T>
@@ -34,10 +33,7 @@ where
     T: FromStr,
     <T as FromStr>::Err: Debug,
 {
-    let mut file = get_buffered_input(path);
-    let mut line = String::new();
-
-    file.read_line(&mut line).unwrap();
+    let line = get_buffered_input(path).lines().next().unwrap().unwrap();
     line.trim()
         .split(',')
         .map(|elem| elem.parse().unwrap())
