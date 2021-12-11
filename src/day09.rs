@@ -60,7 +60,7 @@ fn basin_size(
     while let Some((i, j)) = to_visit.pop_front() {
         let my_level = map[i][j];
 
-        for (their_level, (i, j)) in get_neigbors(map, (i, j)) {
+        for (their_level, (i, j)) in get_neighbors(map, (i, j)) {
             if let Status::Unvisited = status[i][j] {
                 if their_level > my_level && their_level < 9 {
                     to_visit.push_back((i, j));
@@ -91,12 +91,12 @@ fn find_all_low_risk_level_points(map: &[Vec<u8>]) -> Vec<(usize, usize)> {
 }
 
 fn is_low_point(map: &[Vec<u8>], i: usize, j: usize) -> bool {
-    get_neigbors(map, (i, j))
+    get_neighbors(map, (i, j))
         .iter()
         .all(|&(neighbor, ..)| map[i][j] < neighbor)
 }
 
-fn get_neigbors(map: &[Vec<u8>], origin: (usize, usize)) -> Vec<(u8, (usize, usize))> {
+fn get_neighbors(map: &[Vec<u8>], origin: (usize, usize)) -> Vec<(u8, (usize, usize))> {
     let (i, j) = origin;
     let mut neighbors = Vec::with_capacity(4);
 
