@@ -1,5 +1,5 @@
 use std::fmt::Debug;
-use std::fs::File;
+use std::fs::{self, File};
 use std::io::{BufRead, BufReader};
 use std::str::FromStr;
 
@@ -16,6 +16,23 @@ pub(crate) fn get_input_as_vec_with<T>(path: &str, mut f: impl FnMut(&str) -> T)
         .lines()
         .map(|line| f(&line.unwrap()))
         .collect()
+}
+
+pub(crate) fn split_map<T, E, F1, F2>(
+    path: &str,
+    sep: &str,
+    mut f1: F1,
+    mut f2: F2,
+) -> (Vec<T>, Vec<E>)
+where
+    F1: FnMut(u8) -> T,
+    F2: FnMut(&str) -> E,
+{
+    let file = fs::read_to_string(path).unwrap();
+    let (lhs, rhs) = file.split_once(sep).unwrap();
+    let (lhs, rhs) = (lhs.trim(), rhs.trim());
+
+    (lhs.bytes().map(f1).collect(), rhs.lines().map(f2).collect())
 }
 
 pub(crate) fn get_input_as_matrix<T>(
