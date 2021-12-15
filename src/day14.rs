@@ -27,9 +27,7 @@ fn elements_difference_after_n_steps(
     let rules: HashMap<(u8, u8), u8> = pair_insertion.iter().copied().collect();
 
     for pair in polymer_template.windows(2) {
-        if let [lhs, rhs] = *pair {
-            *pair_occurrences.entry((lhs, rhs)).or_default() += 1;
-        }
+        *pair_occurrences.entry((pair[0], pair[1])).or_default() += 1;
     }
 
     for &polymer in polymer_template {
