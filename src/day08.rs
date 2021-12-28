@@ -34,8 +34,8 @@ fn unscramble_numbers(mut digits: Digits<'_>) -> usize {
         let mut to_g;
         let mut i = 0;
 
-        /// Pick a 6-wire entry; it will be either 0, 6 or 9. Only 9 will have exactly one wire
-        /// difference when intersected with 4 merged with 7. The intersection will map to g.
+        // Pick a 6-wire entry; it will be either 0, 6 or 9. Only 9 will have exactly one wire
+        // difference when intersected with 4 merged with 7. The intersection will map to g.
         loop {
             to_g = diff(zero_six_nine[i], &four_and_seven);
             if to_g.is_some() {
@@ -104,7 +104,7 @@ fn decode(map: &HashMap<char, char>, output: &[&str]) -> usize {
     num
 }
 
-// Returns character difference if `a` is exactly one letter longer than b.
+// Returns character difference if `a` is exactly one char longer than `b`.
 fn diff(a: &str, b: &str) -> Option<char> {
     let diff: Vec<char> = a.chars().filter(|&ch| !b.contains(ch)).collect();
 
