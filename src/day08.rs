@@ -3,8 +3,6 @@ use std::fs;
 
 use once_cell::sync::Lazy;
 
-use crate::utils;
-
 static FILE: Lazy<String> = Lazy::new(|| fs::read_to_string(INPUT_PATH).unwrap());
 static INPUT: Lazy<Digits<'_>> = Lazy::new(|| {
     let contents = FILE.lines().collect::<Vec<&str>>();

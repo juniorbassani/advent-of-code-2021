@@ -10,7 +10,7 @@ type Location = (usize, usize);
 
 fn steps_until_no_movement(mut cucumbers: Vec<Vec<u8>>) -> usize {
     let mut container = Vec::with_capacity(128);
-    let mut moved = false;
+    let mut moved;
     let mut count = 0;
 
     loop {

@@ -1,6 +1,5 @@
-use std::fmt::{Debug, Display};
+use std::fmt::Debug;
 use std::ops::Add;
-use std::thread::park_timeout;
 
 use once_cell::sync::Lazy;
 
@@ -167,14 +166,14 @@ impl Elem {
     fn leftmost_number(&mut self) -> &mut usize {
         match self {
             Elem::Number(num) => num,
-            Elem::Pair { lhs, rhs } => lhs.leftmost_number(),
+            Elem::Pair { lhs, rhs: _ } => lhs.leftmost_number(),
         }
     }
 
     fn rightmost_number(&mut self) -> &mut usize {
         match self {
             Elem::Number(num) => num,
-            Elem::Pair { lhs, rhs } => rhs.rightmost_number(),
+            Elem::Pair { lhs: _, rhs } => rhs.rightmost_number(),
         }
     }
 

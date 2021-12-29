@@ -18,12 +18,7 @@ pub(crate) fn get_input_as_vec_with<T>(path: &str, mut f: impl FnMut(&str) -> T)
         .collect()
 }
 
-pub(crate) fn split_map<T, E, F1, F2>(
-    path: &str,
-    sep: &str,
-    mut f1: F1,
-    mut f2: F2,
-) -> (Vec<T>, Vec<E>)
+pub(crate) fn split_map<T, E, F1, F2>(path: &str, sep: &str, f1: F1, f2: F2) -> (Vec<T>, Vec<E>)
 where
     F1: FnMut(u8) -> T,
     F2: FnMut(&str) -> E,
@@ -35,10 +30,7 @@ where
     (lhs.bytes().map(f1).collect(), rhs.lines().map(f2).collect())
 }
 
-pub(crate) fn get_input_as_matrix<T>(
-    path: &str,
-    mut parse: impl FnMut(u8) -> T + Copy,
-) -> Vec<Vec<T>> {
+pub(crate) fn get_input_as_matrix<T>(path: &str, parse: impl FnMut(u8) -> T + Copy) -> Vec<Vec<T>> {
     get_buffered_input(path)
         .lines()
         .map(|line| line.unwrap().bytes().map(parse).collect())

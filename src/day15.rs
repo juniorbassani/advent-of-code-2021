@@ -114,8 +114,6 @@ fn expand_matrix(matrix: &[&[u8]]) -> Vec<Vec<u8>> {
     let expanded: Vec<&[u8]> = matrix.iter().copied().collect();
     let expanded = expanded.repeat(5);
     let mut expanded: Vec<_> = expanded.iter().map(|&row| row.repeat(5)).collect();
-    let expanded_width = expanded[0].len();
-    let expanded_height = expanded.len();
 
     for (x, row) in expanded.iter_mut().enumerate() {
         for (y, elem) in row.iter_mut().enumerate() {
